@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update Task</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <%- include('navbar') %>
+    <div class="container">
+      <h1 class="page-title">Update Task</h1>
+      <form action="/update/<%= result._id %>" method="POST" class="form">
+        <div class="form-group">
+          <label for="title" class="form-label">Title:</label>
+          <input
+            type="text"
+            value="<%= result.title %>"
+            id="title"
+            name="title"
+            class="form-input"
+          />
+        </div>
+        <div class="form-group">
+          <label for="description" class="form-label">Description:</label>
+          <textarea id="description" name="description" class="form-textarea">
+<%= result.description %></textarea
+          >
+        </div>
+        <button type="submit" class="btn btn-primary">Update Task</button>
+      </form>
+    </div>
+  </body>
+</html>

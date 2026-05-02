@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task List</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <%- include('navbar') %>
+    <div class="container">
+      <h1 class="page-title">Task List</h1>
+      <form action="/multi-delete" method="POST">
+      <ul class="task-list">
+        <% for(let task = 0; task < result.length; task++) { %>
+          <li class="task-list-item">
+            <div class="task-item">
+                <div><input type="checkbox" name="selectedTask" value="<%= result[task]._id %>" class="task-checkbox"></div>
+              <h2 class="task-title"><%= result[task].title %></h2>
+              <p class="task-desc"><%= result[task].description %></p>
+              <a href="/delete/<%= result[task]._id %>" class="delete_item">Delete</a>
+              <a href="/update/<%= result[task]._id %>" class="update_item">Update</a>
+            </div>
+          </li>
+        <% } %>
+      </ul>
+      <div style="text-align: center; margin-bottom: 30px;">
+        <button class="delete_item" type="submit" id="deleteSelectedButton" style="display: none;">Delete Selected Tasks</button>
+      </div>
+      </form>
+    </div>
+    <!-- JavaScript to handle checkbox selection and show/hide the delete button -->
+    <script>
+      const checkboxes = document.querySelectorAll('.task-checkbox');
+      const deleteButton = document.getElementById('deleteSelectedButton');
+
+      checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+          const selectedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+          if (selectedCount >= 2) {
+            deleteButton.style.display = 'inline-block';
+          } else {
+            deleteButton.style.display = 'none';
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
