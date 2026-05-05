@@ -12,7 +12,7 @@ export const Navbar = () => {
           </Link>
         </li>
         <li className="navbar-item">
-          <Link to="/add" className="navbar-link">
+          <Link to="/add-task" className="navbar-link">
             Add Task
           </Link>
         </li>
