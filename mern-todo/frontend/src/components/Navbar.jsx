@@ -7,7 +7,7 @@ export const Navbar = () => {
       <div className="navbar-brand">ToDo App</div>
       <ul className="navbar-menu">
         <li className="navbar-item">
-          <Link to="/" className="navbar-link">
+          <Link to="/tasks" className="navbar-link">
             List
           </Link>
         </li>

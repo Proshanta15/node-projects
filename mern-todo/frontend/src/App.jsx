@@ -10,7 +10,7 @@ function App() {
       <section>
         <Navbar />
         <Routes>
-          <Route path="/" element={<List />} />
+          <Route path="/tasks" element={<List />} />
           <Route path="/add-task" element={<AddTask />} />
         </Routes>
       </section>

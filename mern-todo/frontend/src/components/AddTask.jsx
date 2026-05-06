@@ -1,5 +1,6 @@
 
-import { useState } from "react";
+import { use, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../style/add-task.css";
 
 export const AddTask = () => {
@@ -7,6 +8,8 @@ export const AddTask = () => {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const handleAddTask = async () => {
     setSuccess(false);
@@ -28,7 +31,7 @@ export const AddTask = () => {
       if (result) {
         setSuccess(true);
         setTaskData({ title: "", description: "" });
-        
+        navigate("/tasks");
       }
     } catch (e) {
       setError("Something went wrong. Please try again.");
