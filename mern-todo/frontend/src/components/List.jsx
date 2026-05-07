@@ -1,6 +1,7 @@
 
 import { Fragment, useEffect , useState} from "react";
 import "../style/list.css";
+import { Link } from "react-router-dom";
 
 export const List = () => {
 
@@ -24,8 +25,19 @@ export const List = () => {
   }
 
   const handleDelete = async(id) =>{
-    console.log(id);
-    
+    try {
+      let item = await fetch(`http://localhost:3000/delete/${id}`, {
+        method: "DELETE",
+      });
+      item = await item.json();
+      if(item.success){
+        getListData();
+        console.log("Item deleted successfully");
+        
+      }
+    } catch (error) {
+        console.error("Error deleting task:", error);
+    }
   }
 
   return (
@@ -45,7 +57,8 @@ export const List = () => {
                 <li >{index + 1}</li>
                 <li >{task.title}</li>
                 <li >{task.description}</li>
-                <li><button onClick={() =>handleDelete(task._id)} className="delete-btn">Delete</button></li>
+                <li><button onClick={() =>handleDelete(task._id)} className="delete-btn">Delete</button>
+                <Link to={`/update/${task._id}`} className="update-btn">Update</Link></li>
               </Fragment>
               ))
             ) : (
