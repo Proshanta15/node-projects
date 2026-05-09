@@ -1,11 +1,13 @@
 
-import { Fragment, useEffect , useState} from "react";
-import "../style/list.css";
+import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "../style/list.css";
 
 export const List = () => {
 
   const [taskData, setTaskData] = useState();
+  const [selectedTask, setSelectedTask] = useState([]);
+  
 
   useEffect(() => {
     getListData();
@@ -40,13 +42,51 @@ export const List = () => {
     }
   }
 
+  const selectAll = (event) => {
+    if(event.target.checked){
+      const items = taskData.map((item) => item._id);
+      setSelectedTask(items); 
+    }else{
+      setSelectedTask([]);
+    }
+  }
+  const selectedSignleItem = (id) => {
+    if(selectedTask.includes(id)){
+      setSelectedTask(selectedTask.filter((item) => item !== id));
+    }else{
+      setSelectedTask([...selectedTask, id]);
+    }
+  }
+
+  const handleDeleteSelected = async() => {
+    try {
+      let item = await fetch(`http://localhost:3000/delete-multiple`, {
+        method: "DELETE",
+        body: JSON.stringify(selectedTask),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        
+      });
+      item = await item.json();
+      if(item.success){
+        getListData();
+        console.log("Item deleted successfully");
+      }
+    } catch (error) {
+      console.error("Error deleting selected tasks:", error);
+    }
+  }
+
   return (
     <div className="list">
       <h1>Todo List</h1>
       <div>
         <div className="list-card">
           <h2>Task Title</h2>
+          <button onClick={handleDeleteSelected} className="delete-btn">Delete Selected</button>
           <ul>
+            <li><input onChange={selectAll} type="checkbox" /></li>
             <li>S.No</li>
             <li>Title</li>
             <li>Description</li>
@@ -54,6 +94,7 @@ export const List = () => {
             {taskData && taskData.length > 0 ? (
               taskData.map((task, index) => (
                 <Fragment key={task._id}>
+                <li><input type="checkbox" onChange={() =>selectedSignleItem(task._id)} checked={selectedTask.includes(task._id)} /></li>
                 <li >{index + 1}</li>
                 <li >{task.title}</li>
                 <li >{task.description}</li>

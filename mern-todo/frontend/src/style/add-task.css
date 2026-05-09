@@ -60,7 +60,7 @@
 	letter-spacing: 0.5px;
 }
 
-.add-task input[type="text"],
+.add-task input,
 .add-task textarea {
 	padding: 0.85rem 1rem;
 	border: none;
@@ -74,7 +74,7 @@
 	resize: none;
 }
 
-.add-task input[type="text"]:focus,
+.add-task input:focus,
 .add-task textarea:focus {
 	background: #e0e7ff;
 	box-shadow: 0 4px 16px rgba(52, 152, 219, 0.13);
@@ -134,4 +134,16 @@
 		opacity: 1;
 		transform: translateY(0);
 	}
+}
+.login-link {
+	display: block;
+	margin-top: 1rem;
+	text-align: center;
+	color: #4f46e5;
+	font-size: 0.9rem;
+	text-decoration: none;
+	transition: color 0.2s;
+}
+.login-link:hover {
+	color: #3730a3;
 }
