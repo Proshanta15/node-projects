@@ -1,7 +1,7 @@
-import express from "express";
-import { collectionName, connection } from "./dbconfig.js";
 import cors from "cors";
+import express from "express";
 import { ObjectId } from "mongodb";
+import { collectionName, connection } from "./dbconfig.js";
 
 const app = express();
 app.use(cors());
@@ -66,6 +66,26 @@ app.delete("/delete/:id", async (req, res) => {
     })
   }
 });
+
+app.delete("/delete-multiple", async (req, res) => {
+  const db = await connection();
+  const collection = db.collection(collectionName);
+  const ids = req.body.map((id) => new ObjectId(id));
+  const result = await collection.deleteMany({_id: { $in: ids }});
+  if(result){
+    res.send({
+      message: "Tasks deleted successfully",
+      success: true,
+      result
+    })
+  }else{
+    res.send({
+      message: "Failed to delete tasks",
+      success: false
+    })
+  }
+});
+
 
 app.get("/task/:id", async (req, res) => {
   const db = await connection();
