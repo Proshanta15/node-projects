@@ -1,3 +1,4 @@
+// import bcrypt from "bcrypt";
 import User from "../models/user-model.js";
 
 // Home Page Logic
@@ -13,8 +14,6 @@ const homePage = async (req, res) => {
 // Registration Page Logic
 const registrationPage = async (req, res) => {
   try {
-    console.log(req.body);
-
     const { username, phone, email, password } = req.body;
 
     const userExists = await User.findOne({ email });
@@ -22,15 +21,22 @@ const registrationPage = async (req, res) => {
     if (userExists) {
       return res.status(400).json({ message: "User already exists" });
     }
+
+    // const salt = await bcrypt.genSalt(10);
+    // const hashedPassword = await bcrypt.hash(password, salt);
+
     const newUser = await User.create({
       username,
       phone,
       email,
       password
     });
-    res.status(201).json({ message: "User registered successfully" });
+    res.status(201).json({
+      message: "User registered successfully",
+      token: await newUser.generateToken(),
+      userId: newUser._id.toString()
+    });
   } catch (error) {
-    console.log(error);
     res.status(500).send("Internal Server Error");
   }
 }
