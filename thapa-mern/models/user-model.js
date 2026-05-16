@@ -41,6 +41,16 @@ userSchema.pre("save", async function (next) {
     }
 })
 
+// Method to compare the password during login
+userSchema.methods.comparePassword = async function (candidatePassword) {
+    try {
+        return await bcrypt.compare(candidatePassword, this.password);
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
 //JWT token generation method
 userSchema.methods.generateToken = async function () {
     try {

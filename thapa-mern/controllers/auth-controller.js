@@ -41,5 +41,30 @@ const registrationPage = async (req, res) => {
   }
 }
 
-export { homePage, registrationPage };
+// Login Page Logic
+const loginPage = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+    const isMatch = await user.comparePassword(password);
+
+    if (isMatch) {
+      res.status(200).json({
+        message: "Login successful",
+        token: await user.generateToken(),
+        userId: user._id.toString()
+      });
+    } else {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+  }
+}
+
+export { homePage, loginPage, registrationPage };
 
