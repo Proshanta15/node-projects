@@ -6,7 +6,7 @@ const contactForm = async (req, res) => {
         await Contact.create(response);
         res.status(201).json({ message: "Contact form submitted successfully" });
     } catch (error) {
-        res.status(500).json({ message: "Failed to submit contact form", error });
+        next(error);
     }
 };
 
