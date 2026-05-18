@@ -37,7 +37,7 @@ const registrationPage = async (req, res) => {
       userId: newUser._id.toString()
     });
   } catch (error) {
-    res.status(500).send("Internal Server Error");
+    next(error);
   }
 }
 
@@ -62,7 +62,7 @@ const loginPage = async (req, res) => {
       return res.status(400).json({ message: "Invalid email or password" });
     }
   } catch (error) {
-    res.status(500).send("Internal Server Error");
+    next(error);
   }
 }
 
