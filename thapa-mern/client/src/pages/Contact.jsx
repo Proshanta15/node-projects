@@ -1,9 +1,80 @@
-import React from 'react'
+import { useState } from 'react'
+import '../style/contact.css'
 
 export default function Contact() {
+
+  const [contact, setContact] = useState({
+    username: '',
+    email: '',
+    message: ''
+  })
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(contact)
+    setContact({
+      username: '',
+      email: '',
+      message: ''
+    })
+  }
   return (
-    <div>
-      <h1>This is the Contact page</h1>
-    </div>
+    <main className="contact-page">
+      <section className="contact-card">
+        <div className="contact-copy">
+          <p className="contact-tag">Contact Us</p>
+          <h1>Let us discuss your next web project</h1>
+          <p>
+            Share your idea or requirement and we will get back to you with the
+            best solution for your business.
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="contact-form">
+          <div className="contact-field">
+            <label htmlFor="username">Username</label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              placeholder="Enter your username"
+              autoComplete="off"
+              value={contact.username}
+              onChange={(e) => setContact({ ...contact, username: e.target.value })}
+            />
+          </div>
+
+          <div className="contact-field">
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Enter your email"
+              autoComplete="off"
+              value={contact.email}
+              onChange={(e) => setContact({ ...contact, email: e.target.value })}
+            />
+          </div>
+
+          <div className="contact-field">
+            <label htmlFor="message">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              placeholder="Write your message"
+              autoComplete="off"
+              value={contact.message}
+              onChange={(e) => setContact({ ...contact, message: e.target.value })}
+            ></textarea>
+          </div>
+
+          <button type="submit" className="contact-button">
+            Submit
+          </button>
+        </form>
+      </section>
+    </main>
   )
 }

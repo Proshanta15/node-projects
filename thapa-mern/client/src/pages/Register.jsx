@@ -1,4 +1,3 @@
-import React from 'react'
 import '../style/register.css'
 
 export default function Register() {
