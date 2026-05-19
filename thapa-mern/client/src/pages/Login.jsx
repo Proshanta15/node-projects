@@ -1,21 +1,41 @@
-import { useState } from 'react'
-import '../style/login.css'
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../style/login.css";
 
+const URL = "http://localhost:5000/api/auth/login";
 export default function Login() {
-
   const [user, setUser] = useState({
-    email: '',
-    password: ''
-  })
+    email: "",
+    password: "",
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(user)
-    setUser({
-      email: '',
-      password: ''
-    })
-  }
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      if (response.ok) {
+        alert("Login successful");
+        setUser({
+          email: "",
+          password: "",
+        });
+        navigate("/");
+      } else {
+        alert("Invalid email or password");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again.");
+    }
+  };
 
   return (
     <main className="login-page">
@@ -36,7 +56,7 @@ export default function Login() {
               placeholder="Enter your email"
               autoComplete="email"
               value={user.email}
-              onChange={(e)=> setUser({...user, email: e.target.value})}
+              onChange={(e) => setUser({ ...user, email: e.target.value })}
             />
           </div>
 
@@ -49,7 +69,7 @@ export default function Login() {
               placeholder="Enter your password"
               autoComplete="current-password"
               value={user.password}
-              onChange={(e)=> setUser({...user, password: e.target.value})}
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
             />
           </div>
 
@@ -59,5 +79,5 @@ export default function Login() {
         </form>
       </section>
     </main>
-  )
+  );
 }

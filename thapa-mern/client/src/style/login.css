@@ -3,9 +3,6 @@
 	display: grid;
 	place-items: center;
 	padding: 3rem 1.5rem;
-	background:
-		radial-gradient(circle at top left, rgba(19, 78, 74, 0.14), transparent 30%),
-		linear-gradient(135deg, #f5f7f2 0%, #eef4ff 100%);
 }
 
 .login-card {
