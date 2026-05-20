@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../store/auth.jsx";
 import "../style/register.css";
 
 export default function Register() {
@@ -11,6 +12,7 @@ export default function Register() {
   });
 
   const navigate = useNavigate();
+  const { storeTokenInLS } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,6 +33,9 @@ export default function Register() {
         body: JSON.stringify(user),
       });
       if (response.ok) {
+        const res_data = await response.json();
+        console.log("Response from server:", res_data);
+        storeTokenInLS(res_data.token);
         setUser({
           username: "",
           email: "",

@@ -1,6 +1,6 @@
+import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import cors from "cors";
 import { errorMiddleware } from "./middlewares/error-middleware.js";
 import authRouter from "./router/auth-router.js";
 import contactRouter from "./router/contact-router.js";
@@ -12,9 +12,9 @@ const app = express();
 app.use(express.json());
 
 let corsOptions = {
-  origin: 'http://localhost:5174',
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true,
+    origin: 'http://localhost:5173',
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
 }
 
 app.use(cors(corsOptions));

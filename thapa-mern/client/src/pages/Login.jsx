@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../store/auth.jsx";
 import "../style/login.css";
 
 const URL = "http://localhost:5000/api/auth/login";
@@ -8,6 +9,8 @@ export default function Login() {
     email: "",
     password: "",
   });
+
+  const { storeTokenInLS } = useAuth();
 
   const navigate = useNavigate();
 
@@ -22,6 +25,9 @@ export default function Login() {
         body: JSON.stringify(user),
       });
       if (response.ok) {
+        const res_data = await response.json();
+        console.log("Response from server:", res_data);
+        storeTokenInLS(res_data.token);
         alert("Login successful");
         setUser({
           email: "",

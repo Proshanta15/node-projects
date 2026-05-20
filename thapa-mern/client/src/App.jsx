@@ -6,6 +6,7 @@ import Contact from './pages/Contact'
 import Error from './pages/Error'
 import Home from './pages/Home'
 import Login from './pages/Login'
+import Logout from './pages/Logout'
 import Register from './pages/Register'
 import Service from './pages/Service'
 import './style/index.css'
@@ -25,6 +26,7 @@ function App() {
             <Route path='/contact' element={<Contact />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
+            <Route path='/logout' element={<Logout />} />
             <Route path='*' element={<Error />} />
           </Routes>
         </main>
