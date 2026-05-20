@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 
 let corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: 'http://localhost:5174',
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
 }

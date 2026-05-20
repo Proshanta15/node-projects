@@ -66,5 +66,14 @@ const loginPage = async (req, res) => {
   }
 }
 
-export { homePage, loginPage, registrationPage };
+// User Data get Logic
+const user = async (req, res) => {
+  try {
+    console.log();
+    
+  } catch (error) {
+    next(`Error fetching user data: ${error.message}`);
+  }
+}
 
+export { homePage, loginPage, registrationPage, user };
