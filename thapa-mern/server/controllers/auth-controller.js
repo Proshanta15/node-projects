@@ -73,7 +73,7 @@ const user = async (req, res) => {
     console.log(userData);
     
     res.status(200).json({
-      msg: userData
+     userData
     });
   } catch (error) {
     next(`Error fetching user data: ${error.message}`);

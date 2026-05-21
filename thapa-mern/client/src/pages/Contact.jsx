@@ -1,13 +1,27 @@
 import { useState } from 'react'
 import '../style/contact.css'
+import { useAuth } from '../store/auth.jsx'
 
 export default function Contact() {
 
+  
   const [contact, setContact] = useState({
     username: '',
     email: '',
     message: ''
   })
+
+  const [userData, setUserData] = useState(true);
+
+  const { user } = useAuth();
+
+  if(userData && user){
+    setContact({
+      username: user.username,
+      email: user.email
+    });
+    setUserData(false);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()

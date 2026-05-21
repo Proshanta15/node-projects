@@ -1,10 +1,14 @@
 import '../style/about.css'
+import { useAuth } from '../store/auth.jsx'
 
 export default function About() {
+  const { user } = useAuth();
+
   return (
     <main className="about-page">
       <section className="about-intro">
-        <p className="about-tag">About Our Team</p>
+        <p className='about-tag'>Welcome, { user ? user.username : 'to our website'}</p>
+        <p className="about-tag" style={{marginLeft:"20px"}}>About Our Team</p>
         <h1>We build websites that help businesses grow online</h1>
         <p>
           We combine design, development, and strategy to deliver web solutions
