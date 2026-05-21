@@ -69,8 +69,12 @@ const loginPage = async (req, res) => {
 // User Data get Logic
 const user = async (req, res) => {
   try {
-    console.log();
+    const userData = req.user;
+    console.log(userData);
     
+    res.status(200).json({
+      msg: userData
+    });
   } catch (error) {
     next(`Error fetching user data: ${error.message}`);
   }
