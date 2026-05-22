@@ -1,10 +1,10 @@
-import { useState } from 'react'
-import '../style/contact.css'
-import { useAuth } from '../store/auth.jsx'
+import { useState } from 'react';
+import { useAuth } from '../store/auth.jsx';
+import '../style/contact.css';
 
 export default function Contact() {
 
-  
+
   const [contact, setContact] = useState({
     username: '',
     email: '',
@@ -15,7 +15,7 @@ export default function Contact() {
 
   const { user } = useAuth();
 
-  if(userData && user){
+  if (userData && user) {
     setContact({
       username: user.username,
       email: user.email
@@ -23,14 +23,30 @@ export default function Contact() {
     setUserData(false);
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(contact)
-    setContact({
-      username: '',
-      email: '',
-      message: ''
-    })
+    try {
+      const response = await fetch("http://localhost:5000/api/form/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(contact)
+      })
+      if (response.ok) {
+        setContact({
+          username: '',
+          email: '',
+          message: ''
+        })
+        alert("Form submitted successfully");
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
+
+
   }
   return (
     <main className="contact-page">
