@@ -8,12 +8,12 @@ export const validate = (schema) => async (req, res, next) => {
         const message = "Fill all the required fields correctly";
         if (err.name === "ZodError") {
             const extraDetails = err.issues.map((e) => e.message).join(", ");
+            console.log("Validation error:", { status, message, extraDetails });
             return res.status(status).json({
                 message,
                 extraDetails
             });
         }
-
-        next(error);
+        next(err);
     }
 }

@@ -24,6 +24,7 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Register form submitted:", user);
     try {
       const response = await fetch(`http://localhost:5000/api/auth/register`, {
         method: "POST",
@@ -32,9 +33,10 @@ export default function Register() {
         },
         body: JSON.stringify(user),
       });
+      const res_data = await response.json();
+      console.log("Response from server:", res_data);
       if (response.ok) {
-        const res_data = await response.json();
-        console.log("Response from server:", res_data);
+
         storeTokenInLS(res_data.token);
         setUser({
           username: "",
@@ -43,6 +45,8 @@ export default function Register() {
           password: "",
         });
         navigate("/login");
+      } else {
+        alert(res_data.message || "Registration failed. Please try again.");
       }
     } catch (error) {
       console.error(error);
@@ -53,7 +57,7 @@ export default function Register() {
     <section className="register-section">
       <div className="register-container">
         <h1>Register</h1>
-        <form onSubmit={handleSubmit} className="register-form">
+        <form onSubmit={handleSubmit} className="register-form" noValidate>
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input

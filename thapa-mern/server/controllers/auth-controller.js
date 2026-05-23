@@ -12,8 +12,9 @@ const homePage = async (req, res) => {
 }
 
 // Registration Page Logic
-const registrationPage = async (req, res) => {
+const registrationPage = async (req, res, next) => {
   try {
+    console.log("Register request body:", req.body);
     const { username, phone, email, password } = req.body;
 
     const userExists = await User.findOne({ email });
@@ -42,7 +43,7 @@ const registrationPage = async (req, res) => {
 }
 
 // Login Page Logic
-const loginPage = async (req, res) => {
+const loginPage = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -67,13 +68,13 @@ const loginPage = async (req, res) => {
 }
 
 // User Data get Logic
-const user = async (req, res) => {
+const user = async (req, res, next) => {
   try {
     const userData = req.user;
     console.log(userData);
-    
+
     res.status(200).json({
-     userData
+      userData
     });
   } catch (error) {
     next(`Error fetching user data: ${error.message}`);
@@ -81,3 +82,4 @@ const user = async (req, res) => {
 }
 
 export { homePage, loginPage, registrationPage, user };
+
