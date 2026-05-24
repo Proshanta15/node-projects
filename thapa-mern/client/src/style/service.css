@@ -4,10 +4,6 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 	padding: 2rem 1rem;
-	background:
-		radial-gradient(circle at 15% 20%, #d5f5ff 0%, transparent 42%),
-		radial-gradient(circle at 85% 80%, #ffe8d6 0%, transparent 40%),
-		#f7f9fc;
 }
 
 .service-card {
@@ -142,7 +138,17 @@
 	transform: translateY(0);
 }
 
+@media (max-width: 991px) {
+	.service-page {
+    grid-template-columns: repeat(2, 1fr);
+}
+}
+
+
 @media (max-width: 760px) {
+	.service-page {
+    grid-template-columns: repeat(1, 1fr);
+}
 	.service-card {
 		grid-template-columns: 1fr;
 	}
