@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 import { useAuth } from "../store/auth.jsx";
 import "../style/register.css";
 
@@ -46,10 +47,11 @@ export default function Register() {
         });
         navigate("/login");
       } else {
-        alert(res_data.message || "Registration failed. Please try again.");
+        toast.error(res_data.extraDetails || "Registration failed. Please try again.");
       }
     } catch (error) {
       console.error(error);
+      toast.error("An error occurred. Please try again.");
     }
   };
 

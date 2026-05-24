@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 import { useAuth } from "../store/auth.jsx";
 import "../style/login.css";
 
@@ -24,22 +25,23 @@ export default function Login() {
         },
         body: JSON.stringify(user),
       });
+      const res_data = await response.json();
+      console.log("Response from server:", res_data);
       if (response.ok) {
-        const res_data = await response.json();
-        console.log("Response from server:", res_data);
+
         storeTokenInLS(res_data.token);
-        alert("Login successful");
+        toast.success("Login successful");
         setUser({
           email: "",
           password: "",
         });
         navigate("/");
       } else {
-        alert("Invalid email or password");
+        toast.error(res_data.extraDetails || "Invalid email or password");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("An error occurred. Please try again.");
+      toast.error("An error occurred. Please try again.");
     }
   };
 
@@ -52,7 +54,7 @@ export default function Login() {
           <p>Enter your email and password to access your account.</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="login-form">
+        <form onSubmit={handleSubmit} className="login-form" noValidate>
           <div className="form-field">
             <label htmlFor="email">Email</label>
             <input

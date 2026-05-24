@@ -36,7 +36,6 @@ export const AuthProvider = ({ children }) => {
       if (response.ok) {
         const data = await response.json();
         setUser(data.userData);
-        console.log("User data:", data.userData);
       } else {
         console.error("Failed to authenticate user");
       }
@@ -55,7 +54,6 @@ export const AuthProvider = ({ children }) => {
       if (response.ok) {
         const data = await response.json();
         setServices(data);
-        console.log("Services data:", data);
       } else {
         console.error("Failed to fetch services");
       }
@@ -68,7 +66,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     getServices();
     userAuthentication();
-  }, []);
+  }, [token]);
 
 
   return (
