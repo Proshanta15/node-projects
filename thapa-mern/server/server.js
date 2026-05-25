@@ -2,10 +2,10 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import { errorMiddleware } from "./middlewares/error-middleware.js";
+import adminRouter from "./router/admin-router.js";
 import authRouter from "./router/auth-router.js";
 import contactRouter from "./router/contact-router.js";
 import serviceRouter from "./router/service-router.js";
-import adminRouter from "./router/admin-router.js";
 import connectDb from "./utils/db.js";
 
 dotenv.config();
@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json());
 
 let corsOptions = {
-    origin: 'http://localhost:5174',
+    origin: 'http://localhost:5173',
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
 }
