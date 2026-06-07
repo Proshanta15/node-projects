@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../store/auth";
 import "../style/admin-user.css";
 
@@ -128,7 +129,7 @@ export const AdminUsers = () => {
                                             <td>{curUser.phone}</td>
                                             <td>
                                                 <div className="action-group">
-                                                    <button className="btn btn-edit">Edit</button>
+                                                    <Link to={`/admin/users/${curUser._id}/edit`} className="btn btn-edit">Edit</Link>
                                                     <button onClick={() => deleteUser(curUser._id)} className="btn btn-delete">Delete</button>
                                                 </div>
                                             </td>

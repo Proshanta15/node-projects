@@ -14,6 +14,20 @@ const getAllUsers = async (req, res, next) => {
     }
 }
 
+// Controller function to get a user by ID (to be implemented)
+const getUserById = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const user = await User.findOne({ _id: id }, { password: 0 });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        return res.status(200).json(user);
+    } catch (error) {
+        next(error);
+    }
+}
+
 // Controller function to update a user by ID (to be implemented)
 const updateUserById = async (req, res, next) => {
     try {
@@ -52,5 +66,5 @@ const deleteUserById = async (req, res, next) => {
     }
 }
 
-export { deleteUserById, getAllContacts, getAllUsers, updateUserById };
+export { deleteUserById, getAllContacts, getAllUsers, updateUserById , getUserById};
 

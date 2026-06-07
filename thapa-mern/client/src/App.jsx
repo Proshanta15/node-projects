@@ -13,6 +13,7 @@ import Logout from './pages/Logout'
 import Register from './pages/Register'
 import Service from './pages/Service'
 import './style/index.css'
+import AdminUpdate from './pages/AdminUpdate'
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
               <Route path="/admin" element={<AdminLayout />} >
                 <Route path="users" element={<AdminUsers />} />
                 <Route path="contacts" element={<AdminContacts />} />
+                <Route path="users/:id/edit" element={<AdminUpdate />} />
               </Route>
             </Routes>
           </main>
