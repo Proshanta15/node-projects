@@ -14,6 +14,19 @@ const getAllUsers = async (req, res, next) => {
     }
 }
 
+// Controller function to update a user by ID (to be implemented)
+const updateUserById = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const updatedUserData = req.body;
+
+        const updatedData = await User.updateOne({_id: id}, { $set: updatedUserData });
+        return res.status(200).json({ message: "User updated successfully", data: updatedData });
+    } catch (error) {
+        next(error);
+    }
+}
+
 // Controller function to get all contacts
 const getAllContacts = async (req, res, next) => {
     try {
@@ -39,5 +52,5 @@ const deleteUserById = async (req, res, next) => {
     }
 }
 
-export { deleteUserById, getAllContacts, getAllUsers };
+export { deleteUserById, getAllContacts, getAllUsers, updateUserById };
 
