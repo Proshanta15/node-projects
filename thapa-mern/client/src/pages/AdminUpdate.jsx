@@ -1,4 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useAuth } from '../store/auth';
+import { useParams, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const AdminUpdate = () => {
 
@@ -7,6 +10,61 @@ const AdminUpdate = () => {
         email: "",
         phone: ""
     })
+
+     const { authorizationToken } = useAuth();
+     const params = useParams();
+      const navigate = useNavigate();
+
+    const getSingleUserData = async () => {
+        try {
+            const response = await fetch(`http://localhost:5000/api/admin/users/${params.id}`, {
+                method: "GET",
+                headers: {
+                    Authorization: authorizationToken,
+                }
+            })
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                console.log("Fetch failed:", data?.message || "Unable to fetch user data");
+                return;
+            }
+
+            console.log("User data fetched:", data);
+            setData(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getSingleUserData();
+    }, [])
+
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`http://localhost:5000/api/admin/users/update/${params.id}`, 
+              {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: authorizationToken,
+                },
+                body: JSON.stringify(data),
+            })
+            if (response.ok) {
+                 toast.success("User updated successfully")
+                 navigate("/admin/users");
+            }else {
+                toast.error(res_data?.message || "Failed to update user");
+            }
+         
+        } catch (error) {
+          console.log(error);
+        }
+    }
 
   return (
      <main className="contact-page">
@@ -19,7 +77,7 @@ const AdminUpdate = () => {
           </p>
         </div>
 
-        <form className="contact-form">
+        <form className="contact-form" onSubmit={handleUpdate}>
           <div className="contact-field">
             <label htmlFor="username">Username</label>
             <input
@@ -60,7 +118,7 @@ const AdminUpdate = () => {
           </div>
 
           <button type="submit" className="contact-button">
-            Submit
+            Update
           </button>
         </form>
       </section>

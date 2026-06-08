@@ -10,7 +10,7 @@
   --main-muted: #64748b;
   --line: #dbe3ee;
 
-  width: min(1500px, 100% - 2rem);
+  width: min(1300px, 100% - 2rem);
   margin: 1.5rem auto;
   border-radius: 24px;
   overflow: hidden;
